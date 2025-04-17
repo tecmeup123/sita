@@ -92,17 +92,13 @@ export async function waitForLiveCell(client: any, txHash: string, index: string
  * @param network The network to connect to ("mainnet" or "testnet")
  * @returns A configured CKB signer connected to the specified network
  */
-export async function createSigner(network: string = "testnet") {
-  // Define multiple RPC endpoints for each network for fallback
+export async function createSigner(network: string = "mainnet") {
+  // Define RPC endpoints for mainnet with fallbacks
   const rpcEndpoints = {
     mainnet: [
       "https://mainnet.ckb.dev/rpc",
-      "https://rpc.ankr.com/nervos",
+      "https://rpc.ankr.com/nervos", 
       "https://mainnet.ckbapp.dev/rpc"
-    ],
-    testnet: [
-      "https://testnet.ckb.dev/rpc",
-      "https://testnet.ckbapp.dev/rpc"
     ]
   };
   

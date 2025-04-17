@@ -631,25 +631,21 @@ const WalletProviderInner: React.FC<{ children: ReactNode }> = ({ children }) =>
 };
 
 // Function to avoid recalculating these on every render
-function getClientForNetwork(network: "mainnet" | "testnet") {
-  return network === "mainnet" 
-    ? new ccc.ClientPublicMainnet({
-        url: "https://mainnet.ckb.dev/rpc"
-      })
-    : new ccc.ClientPublicTestnet({
-        url: "https://testnet.ckb.dev/rpc"
-      });
+function getClientForNetwork(network: "mainnet") {
+  return new ccc.ClientPublicMainnet({
+    url: "https://mainnet.ckb.dev/rpc"
+  });
 }
 
 // Import necessary types from CCC
 import { NetworkPreference, SignerType } from '@ckb-ccc/connector-react';
 
 // Function to get preferred networks for a network
-function getPreferredNetworks(network: "mainnet" | "testnet"): NetworkPreference[] {
+function getPreferredNetworks(network: "mainnet"): NetworkPreference[] {
   return [{ 
-    network: network === "mainnet" ? "ckb" : "ckb_testnet",
-    addressPrefix: network === "mainnet" ? "ckb" : "ckt",
-    signerType: "ckb" as SignerType // Cast to SignerType
+    network: "ckb",
+    addressPrefix: "ckb",
+    signerType: "ckb" as SignerType
   }];
 }
 
