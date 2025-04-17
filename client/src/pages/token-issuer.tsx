@@ -2947,66 +2947,9 @@ export default function TokenIssuer() {
         {/* Black Footer */}
         <footer className="mt-8 bg-black text-white border-t border-neutral-800 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            {/* Network Toggle in Footer */}
-            <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-              <div className="text-center mb-4 md:mb-0">
-                <p className="font-medium mb-1">{t('networkSelection')}</p>
-                <div className="flex items-center space-x-3">
-                  <span className={`text-sm font-medium ${network === "mainnet" ? "text-orange-400" : "text-neutral-400"}`}>{t('mainnet')}</span>
-                  
-                  <div 
-                    className="relative cursor-pointer"
-                    onClick={() => {
-                      // Use the network validation function to safely switch networks
-                      const validationResult = safeNetworkSwitch(network as NetworkType, walletConnected);
-                      
-                      if (!validationResult.success) {
-                        toast({ 
-                          title: "Network Switch Blocked", 
-                          description: validationResult.error?.message || "Cannot switch networks at this time.",
-                          variant: "destructive" 
-                        });
-                        return;
-                      }
-                      
-                      // If validation passed, update the network state (safeNetworkSwitch already updated localStorage)
-                      if (validationResult.newNetwork) {
-                        setNetwork(validationResult.newNetwork);
-                      }
-                    }}
-                  >
-                    <div 
-                      className={`w-14 h-7 transition-colors duration-200 ease-in-out rounded-full ${
-                        network === "mainnet" 
-                          ? 'bg-orange-500' 
-                          : 'bg-purple-500'
-                      }`}
-                    ></div>
-                    <div 
-                      className={`absolute top-1 w-5 h-5 bg-white rounded-full transform transition-transform duration-200 ease-in-out ${
-                        network === "mainnet" ? 'left-1' : 'left-8'
-                      }`} 
-                    ></div>
-                  </div>
-                  
-                  <span className={`text-sm font-medium ${network === "testnet" ? "text-purple-400" : "text-neutral-400"}`}>{t('testnet')}</span>
-                </div>
-              </div>
-              
-              {/* Network-specific guidance notes */}
-              <div className="text-center">
-                {network === "testnet" ? (
-                  <div className="text-xs p-2 bg-neutral-800 text-white rounded inline-block border-2 border-white shadow-md">
-                    <AlertCircle className="h-3 w-3 text-yellow-600 inline align-middle mr-1" />
-                    <span dangerouslySetInnerHTML={{ __html: t('testnetInfo').replace('<span>', '<span class="font-semibold">') }} /> <a href="https://faucet.nervos.org/" target="_blank" rel="noopener noreferrer" className="text-purple-400 underline">{t('testnetFaucet')}</a>.
-                  </div>
-                ) : (
-                  <div className="text-xs p-2 bg-neutral-800 text-white rounded inline-block border-2 border-white shadow-md">
-                    <AlertCircle className="h-3 w-3 text-yellow-600 inline align-middle mr-1" />
-                    {t('mainnetWarning')}
-                  </div>
-                )}
-              </div>
+            {/* Network info - Mainnet only */}
+            <div className="text-center mb-6">
+              <div className="text-sm font-medium text-orange-400">Mainnet</div>
             </div>
             
             {/* Divider */}

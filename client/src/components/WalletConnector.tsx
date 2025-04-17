@@ -66,7 +66,7 @@ export default function WalletConnector({
     refreshBalance,
     copyAddressToClipboard
   } = useWalletConnection();
-  
+
   const { toast } = useToast();
 
   // Adjust button size based on prop
@@ -85,21 +85,13 @@ export default function WalletConnector({
                 <Button 
                   variant="outline" 
                   size="icon"
-                  className={`${buttonClass} rounded-full ${
-                    network === "mainnet"
-                      ? "border-orange-500 bg-orange-50 dark:bg-orange-900/20 text-orange-600 hover:text-orange-700 hover:bg-orange-100 dark:hover:bg-orange-900/30"
-                      : "border-purple-500 bg-purple-50 dark:bg-purple-900/20 text-purple-600 hover:text-purple-700 hover:bg-purple-100 dark:hover:bg-purple-900/30"
-                  } shadow-sm transition-all duration-300 group relative overflow-hidden`}
+                  className={`${buttonClass} rounded-full border-orange-500 bg-orange-50 dark:bg-orange-900/20 text-orange-600 hover:text-orange-700 hover:bg-orange-100 dark:hover:bg-orange-900/30 shadow-sm transition-all duration-300 group relative overflow-hidden`}
                 >
                   {/* Connected icon - wallet with network-colored indicator */}
                   <Wallet className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
-                  
+
                   {/* Indicator dot in top-right corner */}
-                  <span className={`absolute top-0 right-0 h-2.5 w-2.5 rounded-full ${
-                    network === "mainnet" 
-                      ? "bg-orange-500" 
-                      : "bg-purple-500"
-                  } border border-white dark:border-gray-800 animate-pulse`}></span>
+                  <span className={`absolute top-0 right-0 h-2.5 w-2.5 rounded-full bg-orange-500 border border-white dark:border-gray-800 animate-pulse`}></span>
                 </Button>
               </DropdownMenuTrigger>
             </TooltipTrigger>
@@ -110,38 +102,18 @@ export default function WalletConnector({
         </TooltipProvider>
 
         <DropdownMenuContent align="end" className="w-72 rounded-lg p-2">
-          <div className={`bg-gradient-to-br ${
-              network === "mainnet" 
-                ? "from-orange-50 to-orange-100 dark:from-orange-950/30 dark:to-orange-900/20" 
-                : "from-purple-50 to-purple-100 dark:from-purple-950/30 dark:to-purple-900/20"
-            } rounded-md p-3 mb-2`}>
+          <div className={`bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/30 dark:to-orange-900/20 rounded-md p-3 mb-2`}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className={`w-2.5 h-2.5 rounded-full ${
-                  network === "mainnet" 
-                    ? "bg-orange-500 dark:bg-orange-400" 
-                    : "bg-purple-500 dark:bg-purple-400"
-                } animate-pulse`}></div>
-                <h4 className={`font-semibold ${
-                  network === "mainnet" 
-                    ? "text-orange-700 dark:text-orange-400" 
-                    : "text-purple-700 dark:text-purple-400"
-                }`}>Connected</h4>
+                <div className={`w-2.5 h-2.5 rounded-full bg-orange-500 dark:bg-orange-400 animate-pulse`}></div>
+                <h4 className={`font-semibold text-orange-700 dark:text-orange-400`}>Connected</h4>
               </div>
-              <span className={`text-xs ${
-                network === "mainnet" 
-                  ? "bg-orange-200 dark:bg-orange-800 text-orange-700 dark:text-orange-300" 
-                  : "bg-purple-200 dark:bg-purple-800 text-purple-700 dark:text-purple-300"
-              } px-2 py-0.5 rounded-full`}>
-                {network === "mainnet" ? translations.mainnetText : translations.testnetText}
+              <span className={`text-xs bg-orange-200 dark:bg-orange-800 text-orange-700 dark:text-orange-300 px-2 py-0.5 rounded-full`}>
+                {translations.mainnetText}
               </span>
             </div>
-            
-            <div className={`mt-2 p-2 bg-white/80 dark:bg-black/20 rounded-md border ${
-              network === "mainnet" 
-                ? "border-orange-200 dark:border-orange-800" 
-                : "border-purple-200 dark:border-purple-800"
-            }`}>
+
+            <div className={`mt-2 p-2 bg-white/80 dark:bg-black/20 rounded-md border border-orange-200 dark:border-orange-800`}>
               <div className="flex justify-between items-center">
                 <div className="text-xs text-gray-500 dark:text-gray-400">Wallet Address</div>
                 <Button
@@ -151,9 +123,7 @@ export default function WalletConnector({
                   onClick={copyAddressToClipboard}
                 >
                   {copied ? 
-                    <Check className={`h-3 w-3 ${
-                      network === "mainnet" ? "text-orange-500" : "text-purple-500"
-                    }`} /> : 
+                    <Check className={`h-3 w-3 text-orange-500`} /> : 
                     <Copy className="h-3 w-3 text-gray-500 hover:text-primary" />
                   }
                 </Button>
@@ -167,26 +137,14 @@ export default function WalletConnector({
               </div>
             </div>
           </div>
-          
+
           {/* Balance with refresh button - now showing full formatted balance */}
-          <div className={`flex items-center justify-between p-3 ${
-            network === "mainnet"
-              ? "bg-orange-50 dark:bg-orange-900/10"
-              : "bg-purple-50 dark:bg-purple-900/10"
-          } rounded-md mb-2`}>
+          <div className={`flex items-center justify-between p-3 bg-orange-50 dark:bg-orange-900/10 rounded-md mb-2`}>
             <div className="flex items-center gap-2">
-              <Wallet className={`w-4 h-4 ${
-                network === "mainnet" 
-                  ? "text-orange-500 dark:text-orange-400" 
-                  : "text-purple-500 dark:text-purple-400"
-              }`} />
+              <Wallet className={`w-4 h-4 text-orange-500 dark:text-orange-400`} />
               <div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">Balance</div>
-                <div className={`font-semibold ${
-                  network === "mainnet" 
-                    ? "text-orange-700 dark:text-orange-300" 
-                    : "text-purple-700 dark:text-purple-300"
-                }`}>
+                <div className={`font-semibold text-orange-700 dark:text-orange-300`}>
                   {walletBalance !== null ? (
                     `${walletBalance} CKB`
                   ) : (
@@ -196,30 +154,22 @@ export default function WalletConnector({
               </div>
             </div>
             <Button
-              variant={network === "mainnet" ? "outline" : "outline"}
+              variant="outline"
               size="sm"
               onClick={refreshBalance}
               disabled={refreshing}
-              className={`h-8 gap-1 text-xs ${
-                network === "mainnet"
-                  ? "border-orange-200 hover:bg-orange-100 text-orange-600 dark:border-orange-800 dark:hover:bg-orange-900/20"
-                  : "border-purple-200 hover:bg-purple-100 text-purple-600 dark:border-purple-800 dark:hover:bg-purple-900/20"
-              }`}
+              className={`h-8 gap-1 text-xs border-orange-200 hover:bg-orange-100 text-orange-600 dark:border-orange-800 dark:hover:bg-orange-900/20`}
             >
               <RefreshCw className={`h-3 w-3 ${refreshing ? 'animate-spin' : ''}`} />
               {refreshing ? "Updating..." : "Refresh"}
             </Button>
           </div>
-          
+
           {/* Disconnect button with network-specific colors */}
           <Button 
             variant="outline"
             size="sm" 
-            className={`w-full justify-center mt-1 ${
-              network === "mainnet"
-                ? "bg-red-500 hover:bg-red-600 text-white border-red-400 hover:border-red-500 dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-700"
-                : "bg-red-500 hover:bg-red-600 text-white border-red-400 hover:border-red-500 dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-700"
-            }`}
+            className={`w-full justify-center mt-1 bg-red-500 hover:bg-red-600 text-white border-red-400 hover:border-red-500 dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-700`}
             onClick={disconnectWallet}
           >
             <LogOut className="w-4 h-4 mr-2" />
@@ -239,19 +189,11 @@ export default function WalletConnector({
             <Button 
               variant="outline" 
               size="icon"
-              className={`${buttonClass} rounded-full ${
-                network === "mainnet"
-                  ? "border-orange-200 bg-orange-50 dark:bg-orange-900/20 text-orange-600"
-                  : "border-purple-200 bg-purple-50 dark:bg-purple-900/20 text-purple-600"
-              } shadow-sm transition-all duration-300 relative overflow-hidden`}
+              className={`${buttonClass} rounded-full border-orange-200 bg-orange-50 dark:bg-orange-900/20 text-orange-600 shadow-sm transition-all duration-300 relative overflow-hidden`}
               disabled={true}
             >
               <Loader2 className="h-5 w-5 animate-spin" />
-              <span className={`absolute inset-0 rounded-full ${
-                network === "mainnet"
-                  ? "bg-orange-100/60 dark:bg-orange-700/30"
-                  : "bg-purple-100/60 dark:bg-purple-700/30"
-              } animate-pulse`}></span>
+              <span className={`absolute inset-0 rounded-full bg-orange-100/60 dark:bg-orange-700/30 animate-pulse`}></span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
@@ -277,14 +219,14 @@ export default function WalletConnector({
             <X className="h-4 w-4" />
           </DialogClose>
         </div>
-        
+
         {connectionError && (
           <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-3 rounded-md flex items-center gap-2 text-sm mb-3">
             <AlertTriangle className="h-4 w-4 flex-shrink-0" />
             <p>{connectionError}</p>
           </div>
         )}
-        
+
         <div className="grid gap-4 py-4">
           {/* JoyID Wallet Option */}
           <Button 
@@ -311,7 +253,7 @@ export default function WalletConnector({
             </div>
             <Link className="h-4 w-4 text-gray-400" />
           </Button>
-          
+
           {/* UTXO Global Wallet Option */}
           <Button 
             variant="outline"
@@ -337,7 +279,7 @@ export default function WalletConnector({
             </div>
             <Link className="h-4 w-4 text-gray-400" />
           </Button>
-          
+
           {/* MetaMask Wallet Option */}
           <Button 
             variant="outline"
@@ -364,7 +306,7 @@ export default function WalletConnector({
             <Link className="h-4 w-4 text-gray-400" />
           </Button>
         </div>
-        
+
         <div className="text-xs text-gray-500 dark:text-gray-400 text-center mt-2">
           By connecting your wallet, you agree to the <a href="/terms" className="text-primary underline">Terms of Service</a>
         </div>
@@ -392,7 +334,7 @@ export default function WalletConnector({
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      
+
       {/* Render dialog component when needed */}
       {WalletConnectDialog()}
     </>
