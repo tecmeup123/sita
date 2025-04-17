@@ -1,9 +1,10 @@
 import session from 'express-session';
+import MemoryStore from 'memorystore';
 import { Request, Response, NextFunction } from 'express';
-import connectPgSimple from 'connect-pg-simple';
 import csurf from 'csurf';
 import { SecurityEventType, logSecurityEvent } from '../security';
-import { pool } from '../db';
+
+const MemoryStoreSession = MemoryStore(session);
 
 // Extend the session type to include our custom properties
 declare module 'express-session' {
@@ -20,29 +21,20 @@ const ONE_HOUR = 60 * 60 * 1000;
 const SESSION_EXPIRY = 24 * ONE_HOUR; // 24 hours
 const SESSION_RENEWAL_WINDOW = 6 * ONE_HOUR; // Renew if less than 6 hours left
 
-// Connect PostgreSQL session store
-const PgSession = connectPgSimple(session);
-
-// Create PostgreSQL session store
-const pgStore = new PgSession({
-  pool: pool, 
-  tableName: 'user_sessions',
-  createTableIfMissing: true,
-  pruneSessionInterval: 60 * 15 // Prune expired sessions every 15 minutes
-});
 
 // Configure session middleware
 export const sessionMiddleware = session({
-  store: pgStore,
-  secret: process.env.SESSION_SECRET || 'sita-token-minter-session-secret',
+  store: new MemoryStoreSession({
+    checkPeriod: 86400000 // Prune expired entries every 24h
+  }),
+  secret: process.env.SESSION_SECRET || 'development_secret',
   name: 'sita.session',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: SESSION_EXPIRY,
-    httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax'
+    sameSite: 'lax',
+    maxAge: SESSION_EXPIRY
   }
 });
 
