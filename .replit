@@ -22,3 +22,7 @@ args = "cd client && npm run dev"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "cd server && tsx index.ts"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
