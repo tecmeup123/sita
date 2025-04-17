@@ -33,7 +33,6 @@ export default function WalletConnector({
     connecting: "Connecting...",
     disconnect: "Disconnect",
     walletConnectedTo: "Wallet Connected to",
-    testnetText: "Testnet",
     mainnetText: "Mainnet",
   } 
 }: { 

@@ -25,7 +25,7 @@ export const contentItems = pgTable("content_items", {
   title: text("title").notNull(),
   content: text("content").notNull(),
   language: varchar("language", { length: 10 }).notNull().default("en"),
-  network: varchar("network", { length: 10 }).notNull().default("testnet"),
+  network: varchar("network", { length: 10 }).notNull().default("mainnet"),
   updated_at: timestamp("updated_at").defaultNow(),
   updated_by: text("updated_by"),
 });
@@ -44,7 +44,7 @@ export const faqCategories = pgTable("faq_categories", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   language: varchar("language", { length: 10 }).notNull().default("en"),
-  network: varchar("network", { length: 10 }).notNull().default("testnet"),
+  network: varchar("network", { length: 10 }).notNull().default("mainnet"),
   order: serial("order").notNull(),
 });
 
@@ -62,7 +62,7 @@ export const faqItems = pgTable("faq_items", {
   answer: text("answer").notNull(),
   keywords: text("keywords").array().notNull(),
   language: varchar("language", { length: 10 }).notNull().default("en"),
-  network: varchar("network", { length: 10 }).notNull().default("testnet"),
+  network: varchar("network", { length: 10 }).notNull().default("mainnet"),
   order: serial("order").notNull(),
 });
 
@@ -88,7 +88,7 @@ export const partnerPromotions = pgTable("partner_promotions", {
   link_url: text("link_url").notNull(),
   link_text: text("link_text").notNull(),
   language: varchar("language", { length: 10 }).notNull().default("en"),
-  network: varchar("network", { length: 10 }).notNull().default("testnet"),
+  network: varchar("network", { length: 10 }).notNull().default("mainnet"),
   active: boolean("active").notNull().default(true),
   order: serial("order").notNull(),
 });
@@ -153,7 +153,7 @@ export const securityEvents = pgTable("security_events", {
   request_data: jsonb("request_data"),
   created_at: timestamp("created_at").defaultNow().notNull(),
   severity: varchar("severity", { length: 20 }).notNull().default("info"),
-  network: varchar("network", { length: 10 }).notNull().default("testnet"),
+  network: varchar("network", { length: 10 }).notNull().default("mainnet"),
 }, (table) => {
   return {
     eventTypeIdx: index("security_events_event_type_idx").on(table.event_type),
