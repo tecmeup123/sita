@@ -26,7 +26,7 @@ process.on('unhandledRejection', (reason, promise) => {
   const errorMessage = reason instanceof Error ? reason.stack || reason.message : String(reason);
   log(`CRITICAL: Unhandled Promise Rejection at: ${new Date().toISOString()}`, "error");
   log(`Reason: ${errorMessage}`, "error");
-  
+
   // Log as security event if it appears to be related to sensitive operations
   const errorString = String(errorMessage).toLowerCase();
   if (
@@ -41,7 +41,7 @@ process.on('unhandledRejection', (reason, promise) => {
       `Unhandled Promise Rejection potentially related to sensitive operation: ${errorString.substring(0, 100)}...`
     );
   }
-  
+
   // Don't exit process in production, but log thoroughly
   console.error('Unhandled Promise Rejection:', reason);
 });
@@ -50,13 +50,13 @@ process.on('unhandledRejection', (reason, promise) => {
 process.on('uncaughtException', (error) => {
   log(`CRITICAL: Uncaught Exception at: ${new Date().toISOString()}`, "error");
   log(`Error: ${error.stack || error.message}`, "error");
-  
+
   // Log critical exceptions as security events
   logSecurityEvent(
     SecurityEventType.SUSPICIOUS_ACTIVITY,
     `Uncaught Exception: ${error.message}`
   );
-  
+
   // In production, we should keep the server running if possible
   console.error('Uncaught Exception:', error);
 });
@@ -140,11 +140,11 @@ setupCsrfRoutes(app);
     // Log the error properly instead of throwing (which could crash the server)
     const errorStack = err.stack || '';
     log(`API Error: ${status} ${message}`, "error");
-    
+
     if (errorStack) {
       log(`Error Stack: ${errorStack}`, "error");
     }
-    
+
     // Check if security-related error
     if (
       status === 401 || 
