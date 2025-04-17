@@ -54,7 +54,7 @@ export default function TransactionDetails({
 
   return (
     <Card className="w-full mb-4 border-2 shadow-md">
-      <CardHeader className={`pb-2 ${network === 'mainnet' ? 'bg-orange-50' : 'bg-purple-50'}`}>
+      <CardHeader className={`pb-2 bg-orange-50`}>
         <CardTitle className="text-lg font-bold">{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
@@ -108,7 +108,7 @@ export default function TransactionDetails({
           )}
         </div>
       </CardContent>
-      <CardFooter className={`text-xs text-gray-500 ${network === 'mainnet' ? 'bg-orange-50' : 'bg-purple-50'}`}>
+      <CardFooter className={`text-xs text-gray-500 bg-orange-50`}>
         <p>All transactions recorded on the CKB {network}</p>
       </CardFooter>
     </Card>
