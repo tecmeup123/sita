@@ -137,7 +137,7 @@ const JOYID_LOGO_URL = window.location.origin + "/src/assets/joyid-logo.png";
 
 import { tokenInfoToBytes, issueToken, sendPlatformFee, sendCreatorTip } from "../lib/ckb";
 import LogoImage from "../assets/logo.png";
-import BtcfiUnleashedBanner from "@assets/banner1.png";
+import BtcfiUnleashedBanner from "../assets/banner1.png";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
 
