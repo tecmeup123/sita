@@ -2295,20 +2295,7 @@ export default function TokenIssuer() {
         setIsOpen={setWelcomeDialogOpen}
       />
       
-      {/* Testnet watermark that only shows in testnet mode */}
-      {network === "testnet" && (
-        <div className="absolute inset-0" style={{ zIndex: 0, pointerEvents: 'none' }}>
-          <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 pt-6 h-full">
-            <div className="grid grid-cols-3 grid-rows-3 gap-4 h-full">
-              {Array.from({ length: 9 }).map((_, i) => (
-                <div key={i} className="flex items-center justify-center">
-                  <span className="text-gray-200 opacity-40 font-bold text-7xl transform -rotate-12 select-none">TEST</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+      
       {/* Fixed Header - Black background */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-neutral-800 shadow-md">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
