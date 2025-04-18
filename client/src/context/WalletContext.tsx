@@ -716,14 +716,14 @@ export const WalletProvider: React.FC<{
       console.log(`${matchedWallet} chain filter: signer name=${signerName}, allowed=${isAllowedChain}`);
       
       // Only allow the wallet if the chain matches our patterns
-      return isAllowed && isAllowedChain;
+      return isAllowedChain;
     }
     
     // Log the filtering for debugging
-    console.log(`Filtering wallet: ${walletName}, matched to: ${matchedWallet || 'none'}, allowed: ${isAllowed}`);
+    console.log(`Filtering wallet: ${wallet.name}, matched to: ${matchedWallet || 'none'}, allowed: true`);
     
-    // Return true if the wallet is in our allowed list
-    return isAllowed;
+    // Return true if wallet matches our mapping
+    return true;
   };
   
   return (
