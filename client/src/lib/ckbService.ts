@@ -32,7 +32,7 @@ export async function getBalanceForScript(
   network: 'mainnet' | 'testnet' = 'testnet'
 ): Promise<string> {
   console.log("Getting balance using direct RPC for script:", JSON.stringify(script));
-  
+
   try {
     // Convert script to hash - handle possible format issues with scriptToHash
     // @ts-ignore - Types don't match exactly but function will work
@@ -41,7 +41,7 @@ export async function getBalanceForScript(
 
     // Create RPC client
     const rpcClient = createCkbRpcClient(network);
-    
+
     // Prepare RPC call - note that CKB RPC has specific format requirements
     // Ensure keys match expected format (snake_case vs camelCase)
     const response = await rpcClient.post('', {
@@ -59,20 +59,20 @@ export async function getBalanceForScript(
         }
       ]
     });
-    
+
     console.log("RPC response:", response.data);
-    
+
     // Extract capacity
     if (response.data && response.data.result && response.data.result.capacity) {
       const capacityInShannons = BigInt(response.data.result.capacity);
       const capacityInCkb = Number(capacityInShannons) / 10**8;
-      
+
       console.log("Capacity in shannons:", capacityInShannons.toString());
       console.log("Capacity in CKB:", capacityInCkb.toFixed(8));
-      
+
       return capacityInCkb.toFixed(8);
     }
-    
+
     return "0";
   } catch (error) {
     console.error("Error fetching balance via RPC:", error);
@@ -92,7 +92,7 @@ export async function getCellsByLockHash(
   try {
     // Create RPC client
     const rpcClient = createCkbRpcClient(network);
-    
+
     // Call get_cells API with proper formatting for CKB RPC
     const response = await rpcClient.post('', {
       id: Date.now(),
@@ -114,7 +114,7 @@ export async function getCellsByLockHash(
         "0x64" // 100 cells max
       ]
     });
-    
+
     console.log("Cell response:", response.data);
     return response.data.result && response.data.result.objects 
       ? response.data.result.objects 
