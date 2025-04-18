@@ -10,11 +10,9 @@ import { Script } from './types/ckb';
 import * as ccc from '@ckb-ccc/ccc';
 
 // Create an axios instance for CKB RPC calls
-const createCkbRpcClient = (network: 'mainnet' | 'testnet') => {
+const createCkbRpcClient = () => {
   return axios.create({
-    baseURL: network === 'mainnet' 
-      ? 'https://mainnet.ckb.dev/rpc'
-      : 'https://testnet.ckb.dev/rpc',
+    baseURL: 'https://mainnet.ckb.dev/rpc',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -35,7 +33,7 @@ export async function getBalanceForScript(
 
   try {
     // Create RPC client
-    const rpcClient = createCkbRpcClient(network);
+    const rpcClient = createCkbRpcClient();
 
     // First try getting capacity directly
     const response = await rpcClient.post('', {
@@ -96,7 +94,7 @@ export async function getBalanceForScript(
         const totalCapacity = cells.reduce((sum: bigint, cell: any) => {
           return sum + BigInt(cell.output.capacity || 0);
         }, BigInt(0));
-        
+
         const capacityInCkb = Number(totalCapacity) / 10**8;
         return capacityInCkb.toFixed(8);
       }
@@ -118,7 +116,7 @@ export async function getCellsByLockHash(
 ): Promise<any[]> {
   try {
     // Create RPC client
-    const rpcClient = createCkbRpcClient(network);
+    const rpcClient = createCkbRpcClient();
 
     // Call get_cells API with proper formatting for CKB RPC
     const response = await rpcClient.post('', {

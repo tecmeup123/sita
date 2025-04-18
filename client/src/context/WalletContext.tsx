@@ -12,7 +12,7 @@ export interface WalletContextType {
   signer: ExtendedSigner | null;
   walletConnected: boolean;
   connecting: boolean;
-  network: "mainnet" | "testnet";
+  network: "mainnet";
   walletAddress: string | null;
   walletBalance: string | null;
   userScript: Script | null;
