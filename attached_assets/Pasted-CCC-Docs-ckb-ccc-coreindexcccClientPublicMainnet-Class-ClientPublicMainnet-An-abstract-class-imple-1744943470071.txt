@@ -1,0 +1,969 @@
+CCC Docs@ckb-ccc coreindexcccClientPublicMainnet
+Class ClientPublicMainnet
+An abstract class implementing JSON-RPC client functionality for a specific URL and timeout. Provides methods for sending transactions and building JSON-RPC payloads.
+
+Hierarchy (view full)
+ClientJsonRpc
+ClientPublicMainnet
+Defined in client/clientPublicMainnet.ts:10
+Constructors
+C
+constructor
+Properties
+P
+cache
+P
+requestor
+P
+getFeeRateStatistics
+P
+getTip
+P
+getTipHeader
+P
+getBlockByNumberNoCache
+P
+getBlockByHashNoCache
+P
+getHeaderByNumberNoCache
+P
+getHeaderByHashNoCache
+P
+estimateCycles
+P
+sendTransactionDry
+P
+sendTransactionNoCache
+P
+getTransactionNoCache
+P
+findCellsPagedNoCache
+P
+findTransactionsPaged
+P
+getCellsCapacity
+Accessors
+A
+scripts
+A
+addressPrefix
+A
+url
+Methods
+M
+getFeeRate
+M
+getBlockByNumber
+M
+getBlockByHash
+M
+getHeaderByNumber
+M
+getHeaderByHash
+M
+getCell
+M
+getCellWithHeader
+M
+getCellLive
+M
+findCellsPaged
+M
+findCellsOnChain
+M
+findCells
+M
+findCellsByLock
+M
+findCellsByType
+M
+findSingletonCellByType
+M
+getCellDeps
+M
+findTransactions
+M
+findTransactionsByLock
+M
+findTransactionsByType
+M
+getBalanceSingle
+M
+getBalance
+M
+sendTransaction
+M
+getTransaction
+M
+getTransactionWithHeader
+M
+waitTransaction
+M
+getKnownScript
+M
+getCellLiveNoCache
+M
+buildSender
+constructor
+new ClientPublicMainnet(config?): ClientPublicMainnet
+Parameters
+Optionalconfig: RequestorJsonRpcConfig & {
+    cache?: ClientCache;
+    requestor?: RequestorJsonRpc;
+} & {
+    url?: string;
+    scripts?: Record<KnownScript, undefined | ScriptInfoLike>;
+}
+Returns ClientPublicMainnet
+Overrides ClientJsonRpc.constructor
+
+Defined in client/clientPublicMainnet.ts:11
+cache
+cache: ClientCache
+Inherited from ClientJsonRpc.cache
+
+Defined in client/client.ts:49
+Readonly
+requestor
+requestor: RequestorJsonRpc
+Inherited from ClientJsonRpc.requestor
+
+Defined in client/jsonRpc/client.ts:80
+getFeeRateStatistics
+getFeeRateStatistics: ((blockRange?: NumLike) => Promise<{
+    mean: bigint;
+    median: bigint;
+}>) = ...
+Get fee rate statistics
+
+Type declaration
+(blockRange?): Promise<{
+    mean: bigint;
+    median: bigint;
+}>
+Parameters
+OptionalblockRange: NumLike
+Returns Promise<{
+    mean: bigint;
+    median: bigint;
+}>
+Fee rate statistics
+
+Inherited from ClientJsonRpc.getFeeRateStatistics
+
+Defined in client/jsonRpc/client.ts:131
+getTip
+getTip: (() => Promise<bigint>) = ...
+Get tip block number
+
+Type declaration
+(): Promise<bigint>
+Returns Promise<bigint>
+Tip block number
+
+Inherited from ClientJsonRpc.getTip
+
+Defined in client/jsonRpc/client.ts:146
+getTipHeader
+getTipHeader: ((verbosity?: null | number) => Promise<ClientBlockHeader>) = ...
+Get tip block header
+
+Type declaration
+(verbosity?): Promise<ClientBlockHeader>
+Parameters
+Optionalverbosity: null | number
+result format which allows 0 and 1. (Optional, the default is 1.)
+
+Returns Promise<ClientBlockHeader>
+BlockHeader
+
+Inherited from ClientJsonRpc.getTipHeader
+
+Defined in client/jsonRpc/client.ts:158
+getBlockByNumberNoCache
+getBlockByNumberNoCache: ((blockNumber: NumLike, verbosity?: null | number, withCycles?: null | boolean) => Promise<undefined | ClientBlock>) = ...
+Get block by block number
+
+Type declaration
+(blockNumber, verbosity?, withCycles?): Promise<undefined | ClientBlock>
+Parameters
+blockNumber: NumLike
+The block number.
+
+Optionalverbosity: null | number
+result format which allows 0 and 2. (Optional, the default is 2.)
+
+OptionalwithCycles: null | boolean
+whether the return cycles of block transactions. (Optional, default false.)
+
+Returns Promise<undefined | ClientBlock>
+Block
+
+Inherited from ClientJsonRpc.getBlockByNumberNoCache
+
+Defined in client/jsonRpc/client.ts:172
+getBlockByHashNoCache
+getBlockByHashNoCache: ((blockHash: BytesLike, verbosity?: null | number, withCycles?: null | boolean) => Promise<undefined | ClientBlock>) = ...
+Get block by block hash
+
+Type declaration
+(blockHash, verbosity?, withCycles?): Promise<undefined | ClientBlock>
+Parameters
+blockHash: BytesLike
+The block hash.
+
+Optionalverbosity: null | number
+result format which allows 0 and 2. (Optional, the default is 2.)
+
+OptionalwithCycles: null | boolean
+whether the return cycles of block transactions. (Optional, default false.)
+
+Returns Promise<undefined | ClientBlock>
+Block
+
+Inherited from ClientJsonRpc.getBlockByHashNoCache
+
+Defined in client/jsonRpc/client.ts:186
+getHeaderByNumberNoCache
+getHeaderByNumberNoCache: ((blockNumber: NumLike, verbosity?: null | number) => Promise<undefined | ClientBlockHeader>) = ...
+Get header by block number
+
+Type declaration
+(blockNumber, verbosity?): Promise<undefined | ClientBlockHeader>
+Parameters
+blockNumber: NumLike
+The block number.
+
+Optionalverbosity: null | number
+result format which allows 0 and 1. (Optional, the default is 1.)
+
+Returns Promise<undefined | ClientBlockHeader>
+BlockHeader
+
+Inherited from ClientJsonRpc.getHeaderByNumberNoCache
+
+Defined in client/jsonRpc/client.ts:199
+getHeaderByHashNoCache
+getHeaderByHashNoCache: ((blockHash: BytesLike, verbosity?: null | number) => Promise<undefined | ClientBlockHeader>) = ...
+Get header by block hash
+
+Type declaration
+(blockHash, verbosity?): Promise<undefined | ClientBlockHeader>
+Parameters
+blockHash: BytesLike
+The block hash.
+
+Optionalverbosity: null | number
+result format which allows 0 and 1. (Optional, the default is 1.)
+
+Returns Promise<undefined | ClientBlockHeader>
+BlockHeader
+
+Inherited from ClientJsonRpc.getHeaderByHashNoCache
+
+Defined in client/jsonRpc/client.ts:212
+estimateCycles
+estimateCycles: ((transaction: TransactionLike) => Promise<bigint>) = ...
+Estimate cycles of a transaction.
+
+Type declaration
+(transaction): Promise<bigint>
+Parameters
+transaction: TransactionLike
+The transaction to estimate.
+
+Returns Promise<bigint>
+Consumed cycles
+
+Inherited from ClientJsonRpc.estimateCycles
+
+Defined in client/jsonRpc/client.ts:224
+sendTransactionDry
+sendTransactionDry: ((transaction: TransactionLike, validator?: OutputsValidator) => Promise<bigint>) = ...
+Test a transaction.
+
+Type declaration
+(transaction, validator?): Promise<bigint>
+Parameters
+transaction: TransactionLike
+The transaction to test.
+
+Optionalvalidator: OutputsValidator
+"passthrough": Disable validation. "well_known_scripts_only": Only accept well known scripts in the transaction.
+
+Returns Promise<bigint>
+Consumed cycles
+
+Inherited from ClientJsonRpc.sendTransactionDry
+
+Defined in client/jsonRpc/client.ts:238
+sendTransactionNoCache
+sendTransactionNoCache: ((transaction: TransactionLike, validator?: OutputsValidator) => Promise<`0x${string}`>) = ...
+Send a transaction to node.
+
+Type declaration
+(transaction, validator?): Promise<`0x${string}`>
+Parameters
+transaction: TransactionLike
+The transaction to send.
+
+Optionalvalidator: OutputsValidator
+"passthrough": Disable validation. "well_known_scripts_only": Only accept well known scripts in the transaction.
+
+Returns Promise<`0x${string}`>
+Transaction hash.
+
+Inherited from ClientJsonRpc.sendTransactionNoCache
+
+Defined in client/jsonRpc/client.ts:252
+getTransactionNoCache
+getTransactionNoCache: ((txHash: BytesLike) => Promise<undefined | ClientTransactionResponse>) = ...
+Get a transaction from node.
+
+Type declaration
+(txHash): Promise<undefined | ClientTransactionResponse>
+Parameters
+txHash: BytesLike
+The hash of the transaction.
+
+Returns Promise<undefined | ClientTransactionResponse>
+The transaction with status.
+
+Inherited from ClientJsonRpc.getTransactionNoCache
+
+Defined in client/jsonRpc/client.ts:268
+findCellsPagedNoCache
+findCellsPagedNoCache: ((key: ClientIndexerSearchKeyLike, order?: "asc" | "desc", limit?: NumLike, after?: string) => Promise<ClientFindCellsResponse>) = ...
+find cells from node.
+
+Type declaration
+(key, order?, limit?, after?): Promise<ClientFindCellsResponse>
+Parameters
+key: ClientIndexerSearchKeyLike
+The search key of cells.
+
+Optionalorder: "asc" | "desc"
+The order of cells.
+
+Optionallimit: NumLike
+The max return size of cells.
+
+Optionalafter: string
+Pagination parameter.
+
+Returns Promise<ClientFindCellsResponse>
+The found cells.
+
+Inherited from ClientJsonRpc.findCellsPagedNoCache
+
+Defined in client/jsonRpc/client.ts:326
+findTransactionsPaged
+findTransactionsPaged: {
+    (key: Omit<ClientIndexerSearchKeyTransactionLike, "groupByTransaction"> & {
+        groupByTransaction: true;
+    }, order?: "asc" | "desc", limit?: NumLike, after?: string): Promise<ClientFindTransactionsGroupedResponse>;
+    (key: Omit<ClientIndexerSearchKeyTransactionLike, "groupByTransaction"> & {
+        groupByTransaction?: null | false;
+    }, order?: "asc" | "desc", limit?: NumLike, after?: string): Promise<ClientFindTransactionsResponse>;
+    (key: ClientIndexerSearchKeyTransactionLike, order?: "asc" | "desc", limit?: NumLike, after?: string): Promise<ClientFindTransactionsResponse | ClientFindTransactionsGroupedResponse>;
+} = ...
+find transactions from node.
+
+Param: key
+The search key of transactions.
+
+Param: order
+The order of transactions.
+
+Param: limit
+The max return size of transactions.
+
+Param: after
+Pagination parameter.
+
+Returns
+The found transactions.
+
+Inherited from ClientJsonRpc.findTransactionsPaged
+
+Defined in client/jsonRpc/client.ts:351
+getCellsCapacity
+getCellsCapacity: ((key: ClientIndexerSearchKeyLike) => Promise<bigint>) = ...
+get cells capacity from node.
+
+Type declaration
+(key): Promise<bigint>
+Parameters
+key: ClientIndexerSearchKeyLike
+The search key of cells.
+
+Returns Promise<bigint>
+The sum of cells capacity.
+
+Inherited from ClientJsonRpc.getCellsCapacity
+
+Defined in client/jsonRpc/client.ts:368
+scripts
+get scripts(): Record<KnownScript, undefined | ScriptInfoLike>
+Returns Record<KnownScript, undefined | ScriptInfoLike>
+Defined in client/clientPublicMainnet.ts:38
+addressPrefix
+get addressPrefix(): string
+Returns string
+Overrides ClientJsonRpc.addressPrefix
+
+Defined in client/clientPublicMainnet.ts:42
+url
+get url(): string
+Returns the URL of the JSON-RPC server.
+
+Returns string
+The URL of the JSON-RPC server.
+
+Inherited from ClientJsonRpc.url
+
+Defined in client/jsonRpc/client.ts:121
+getFeeRate
+getFeeRate(blockRange?, options?): Promise<bigint>
+Parameters
+OptionalblockRange: NumLike
+Optionaloptions: {
+    maxFeeRate?: NumLike;
+}
+OptionalmaxFeeRate?: NumLike
+Returns Promise<bigint>
+Inherited from ClientJsonRpc.getFeeRate
+
+Defined in client/client.ts:63
+getBlockByNumber
+getBlockByNumber(blockNumber, verbosity?, withCycles?): Promise<undefined | ClientBlock>
+Parameters
+blockNumber: NumLike
+Optionalverbosity: null | number
+OptionalwithCycles: null | boolean
+Returns Promise<undefined | ClientBlock>
+Inherited from ClientJsonRpc.getBlockByNumber
+
+Defined in client/client.ts:100
+getBlockByHash
+getBlockByHash(blockHash, verbosity?, withCycles?): Promise<undefined | ClientBlock>
+Parameters
+blockHash: BytesLike
+Optionalverbosity: null | number
+OptionalwithCycles: null | boolean
+Returns Promise<undefined | ClientBlock>
+Inherited from ClientJsonRpc.getBlockByHash
+
+Defined in client/client.ts:120
+getHeaderByNumber
+getHeaderByNumber(blockNumber, verbosity?): Promise<undefined | ClientBlockHeader>
+Parameters
+blockNumber: NumLike
+Optionalverbosity: null | number
+Returns Promise<undefined | ClientBlockHeader>
+Inherited from ClientJsonRpc.getHeaderByNumber
+
+Defined in client/client.ts:140
+getHeaderByHash
+getHeaderByHash(blockHash, verbosity?): Promise<undefined | ClientBlockHeader>
+Parameters
+blockHash: BytesLike
+Optionalverbosity: null | number
+Returns Promise<undefined | ClientBlockHeader>
+Inherited from ClientJsonRpc.getHeaderByHash
+
+Defined in client/client.ts:155
+getCell
+getCell(outPointLike): Promise<undefined | Cell>
+Parameters
+outPointLike: OutPointLike
+Returns Promise<undefined | Cell>
+Inherited from ClientJsonRpc.getCell
+
+Defined in client/client.ts:185
+getCellWithHeader
+getCellWithHeader(outPointLike): Promise<undefined | {
+    cell: Cell;
+    header?: ClientBlockHeader;
+}>
+Parameters
+outPointLike: OutPointLike
+Returns Promise<undefined | {
+    cell: Cell;
+    header?: ClientBlockHeader;
+}>
+Inherited from ClientJsonRpc.getCellWithHeader
+
+Defined in client/client.ts:210
+getCellLive
+getCellLive(outPointLike, withData?, includeTxPool?): Promise<undefined | Cell>
+Parameters
+outPointLike: OutPointLike
+OptionalwithData: null | boolean
+OptionalincludeTxPool: null | boolean
+Returns Promise<undefined | Cell>
+Inherited from ClientJsonRpc.getCellLive
+
+Defined in client/client.ts:239
+findCellsPaged
+findCellsPaged(key, order?, limit?, after?): Promise<ClientFindCellsResponse>
+Parameters
+key: ClientIndexerSearchKeyLike
+Optionalorder: "asc" | "desc"
+Optionallimit: NumLike
+Optionalafter: string
+Returns Promise<ClientFindCellsResponse>
+Inherited from ClientJsonRpc.findCellsPaged
+
+Defined in client/client.ts:261
+findCellsOnChain
+findCellsOnChain(key, order?, limit?): AsyncGenerator<Cell, any, any>
+Parameters
+key: ClientIndexerSearchKeyLike
+Optionalorder: "asc" | "desc"
+limit: number = 10
+Returns AsyncGenerator<Cell, any, any>
+Inherited from ClientJsonRpc.findCellsOnChain
+
+Defined in client/client.ts:272
+findCells
+findCells(keyLike, order?, limit?): AsyncGenerator<Cell, any, any>
+Find cells by search key designed for collectable cells. The result also includes cached cells, the order param only works for cells fetched from RPC.
+
+Parameters
+keyLike: ClientCollectableSearchKeyLike
+The search key.
+
+Optionalorder: "asc" | "desc"
+limit: number = 10
+Returns AsyncGenerator<Cell, any, any>
+A async generator for yielding cells.
+
+Inherited from ClientJsonRpc.findCells
+
+Defined in client/client.ts:303
+findCellsByLock
+findCellsByLock(lock, type?, withData?, order?, limit?): AsyncGenerator<Cell, any, any>
+Parameters
+lock: ScriptLike
+Optionaltype: null | ScriptLike
+withData: boolean = true
+Optionalorder: "asc" | "desc"
+limit: number = 10
+Returns AsyncGenerator<Cell, any, any>
+Inherited from ClientJsonRpc.findCellsByLock
+
+Defined in client/client.ts:328
+findCellsByType
+findCellsByType(type, withData?, order?, limit?): AsyncGenerator<Cell, any, any>
+Parameters
+type: ScriptLike
+withData: boolean = true
+Optionalorder: "asc" | "desc"
+limit: number = 10
+Returns AsyncGenerator<Cell, any, any>
+Inherited from ClientJsonRpc.findCellsByType
+
+Defined in client/client.ts:350
+findSingletonCellByType
+findSingletonCellByType(type, withData?): Promise<undefined | Cell>
+Parameters
+type: ScriptLike
+withData: boolean = false
+Returns Promise<undefined | Cell>
+Inherited from ClientJsonRpc.findSingletonCellByType
+
+Defined in client/client.ts:368
+getCellDeps
+getCellDeps(...cellDepsInfoLike): Promise<CellDep[]>
+Parameters
+Rest...cellDepsInfoLike: (CellDepInfoLike | CellDepInfoLike[])[]
+Returns Promise<CellDep[]>
+Inherited from ClientJsonRpc.getCellDeps
+
+Defined in client/client.ts:382
+findTransactions
+findTransactions(key, order?, limit?): AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    cells: {
+        isInput: boolean;
+        cellIndex: bigint;
+    }[];
+}, any, any>
+Parameters
+key: Omit<ClientIndexerSearchKeyTransactionLike, "groupByTransaction"> & {
+    groupByTransaction: true;
+}
+Optionalorder: "asc" | "desc"
+Optionallimit: number
+Returns AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    cells: {
+        isInput: boolean;
+        cellIndex: bigint;
+    }[];
+}, any, any>
+Inherited from ClientJsonRpc.findTransactions
+
+Defined in client/client.ts:429
+findTransactions(key, order?, limit?): AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    isInput: boolean;
+    cellIndex: bigint;
+}, any, any>
+Parameters
+key: Omit<ClientIndexerSearchKeyTransactionLike, "groupByTransaction"> & {
+    groupByTransaction?: null | false;
+}
+Optionalorder: "asc" | "desc"
+Optionallimit: number
+Returns AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    isInput: boolean;
+    cellIndex: bigint;
+}, any, any>
+Inherited from ClientJsonRpc.findTransactions
+
+Defined in client/client.ts:436
+findTransactions(key, order?, limit?): AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    isInput: boolean;
+    cellIndex: bigint;
+} | {
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    cells: {
+        isInput: boolean;
+        cellIndex: bigint;
+    }[];
+}, any, any>
+Parameters
+key: ClientIndexerSearchKeyTransactionLike
+Optionalorder: "asc" | "desc"
+Optionallimit: number
+Returns AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    isInput: boolean;
+    cellIndex: bigint;
+} | {
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    cells: {
+        isInput: boolean;
+        cellIndex: bigint;
+    }[];
+}, any, any>
+Inherited from ClientJsonRpc.findTransactions
+
+Defined in client/client.ts:443
+findTransactionsByLock
+findTransactionsByLock(lock, type, groupByTransaction, order?, limit?): AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    cells: {
+        isInput: boolean;
+        cellIndex: bigint;
+    }[];
+}, any, any>
+Parameters
+lock: ScriptLike
+type: undefined | null | ScriptLike
+groupByTransaction: true
+Optionalorder: "asc" | "desc"
+Optionallimit: number
+Returns AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    cells: {
+        isInput: boolean;
+        cellIndex: bigint;
+    }[];
+}, any, any>
+Inherited from ClientJsonRpc.findTransactionsByLock
+
+Defined in client/client.ts:479
+findTransactionsByLock(lock, type?, groupByTransaction?, order?, limit?): AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    isInput: boolean;
+    cellIndex: bigint;
+}, any, any>
+Parameters
+lock: ScriptLike
+Optionaltype: null | ScriptLike
+OptionalgroupByTransaction: null | false
+Optionalorder: "asc" | "desc"
+Optionallimit: number
+Returns AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    isInput: boolean;
+    cellIndex: bigint;
+}, any, any>
+Inherited from ClientJsonRpc.findTransactionsByLock
+
+Defined in client/client.ts:486
+findTransactionsByLock(lock, type?, groupByTransaction?, order?, limit?): AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    isInput: boolean;
+    cellIndex: bigint;
+} | {
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    cells: {
+        isInput: boolean;
+        cellIndex: bigint;
+    }[];
+}, any, any>
+Parameters
+lock: ScriptLike
+Optionaltype: null | ScriptLike
+OptionalgroupByTransaction: null | boolean
+Optionalorder: "asc" | "desc"
+Optionallimit: number
+Returns AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    isInput: boolean;
+    cellIndex: bigint;
+} | {
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    cells: {
+        isInput: boolean;
+        cellIndex: bigint;
+    }[];
+}, any, any>
+Inherited from ClientJsonRpc.findTransactionsByLock
+
+Defined in client/client.ts:493
+findTransactionsByType
+findTransactionsByType(type, groupByTransaction, order?, limit?): AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    cells: {
+        isInput: boolean;
+        cellIndex: bigint;
+    }[];
+}, any, any>
+Parameters
+type: ScriptLike
+groupByTransaction: true
+Optionalorder: "asc" | "desc"
+Optionallimit: number
+Returns AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    cells: {
+        isInput: boolean;
+        cellIndex: bigint;
+    }[];
+}, any, any>
+Inherited from ClientJsonRpc.findTransactionsByType
+
+Defined in client/client.ts:528
+findTransactionsByType(type, groupByTransaction?, order?, limit?): AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    isInput: boolean;
+    cellIndex: bigint;
+}, any, any>
+Parameters
+type: ScriptLike
+OptionalgroupByTransaction: null | false
+Optionalorder: "asc" | "desc"
+Optionallimit: number
+Returns AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    isInput: boolean;
+    cellIndex: bigint;
+}, any, any>
+Inherited from ClientJsonRpc.findTransactionsByType
+
+Defined in client/client.ts:534
+findTransactionsByType(type, groupByTransaction?, order?, limit?): AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    isInput: boolean;
+    cellIndex: bigint;
+} | {
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    cells: {
+        isInput: boolean;
+        cellIndex: bigint;
+    }[];
+}, any, any>
+Parameters
+type: ScriptLike
+OptionalgroupByTransaction: null | boolean
+Optionalorder: "asc" | "desc"
+Optionallimit: number
+Returns AsyncGenerator<{
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    isInput: boolean;
+    cellIndex: bigint;
+} | {
+    txHash: `0x${string}`;
+    blockNumber: bigint;
+    txIndex: bigint;
+    cells: {
+        isInput: boolean;
+        cellIndex: bigint;
+    }[];
+}, any, any>
+Inherited from ClientJsonRpc.findTransactionsByType
+
+Defined in client/client.ts:540
+getBalanceSingle
+getBalanceSingle(lock): Promise<bigint>
+Parameters
+lock: ScriptLike
+Returns Promise<bigint>
+Inherited from ClientJsonRpc.getBalanceSingle
+
+Defined in client/client.ts:572
+getBalance
+getBalance(locks): Promise<bigint>
+Parameters
+locks: ScriptLike[]
+Returns Promise<bigint>
+Inherited from ClientJsonRpc.getBalance
+
+Defined in client/client.ts:584
+sendTransaction
+sendTransaction(transaction, validator?, options?): Promise<`0x${string}`>
+Parameters
+transaction: TransactionLike
+Optionalvalidator: OutputsValidator
+Optionaloptions: {
+    maxFeeRate?: NumLike;
+}
+OptionalmaxFeeRate?: NumLike
+Returns Promise<`0x${string}`>
+Inherited from ClientJsonRpc.sendTransaction
+
+Defined in client/client.ts:592
+getTransaction
+getTransaction(txHashLike): Promise<undefined | ClientTransactionResponse>
+Parameters
+txHashLike: BytesLike
+Returns Promise<undefined | ClientTransactionResponse>
+Inherited from ClientJsonRpc.getTransaction
+
+Defined in client/client.ts:611
+getTransactionWithHeader
+getTransactionWithHeader(txHashLike): Promise<undefined | {
+    transaction: ClientTransactionResponse;
+    header?: ClientBlockHeader;
+}>
+This method gets specified transaction with its block header (if existed). This is mainly for caching because we need the header to test if we can safely trust the cached tx status.
+
+Parameters
+txHashLike: BytesLike
+Returns Promise<undefined | {
+    transaction: ClientTransactionResponse;
+    header?: ClientBlockHeader;
+}>
+Inherited from ClientJsonRpc.getTransactionWithHeader
+
+Defined in client/client.ts:629
+waitTransaction
+waitTransaction(txHash, confirmations?, timeout?, interval?): Promise<undefined | ClientTransactionResponse>
+Parameters
+txHash: BytesLike
+confirmations: number = 0
+timeout: number = 60000
+interval: number = 2000
+Returns Promise<undefined | ClientTransactionResponse>
+Inherited from ClientJsonRpc.waitTransaction
+
+Defined in client/client.ts:661
+getKnownScript
+getKnownScript(script): Promise<ccc.ScriptInfo>
+Parameters
+script: KnownScript
+Returns Promise<ccc.ScriptInfo>
+Overrides ClientJsonRpc.getKnownScript
+
+Defined in client/clientPublicMainnet.ts:46
+getCellLiveNoCache
+getCellLiveNoCache(outPoint, withData?, includeTxPool?): Promise<undefined | Cell>
+Get a live cell from node.
+
+Parameters
+outPoint: OutPointLike
+The out point of the cell.
+
+OptionalwithData: null | boolean
+Include data in the response.
+
+OptionalincludeTxPool: null | boolean
+Include cells in the tx pool.
+
+Returns Promise<undefined | Cell>
+The cell
+
+Inherited from ClientJsonRpc.getCellLiveNoCache
+
+Defined in client/jsonRpc/client.ts:282
+buildSender
+buildSender(rpcMethod, inTransformers?, outTransformer?): ((...req: unknown[]) => Promise<unknown>)
+Builds a sender function for a JSON-RPC method.
+
+Parameters
+rpcMethod: string
+The JSON-RPC method.
+
+OptionalinTransformers: (undefined | ((_: any) => unknown))[]
+An array of input transformers.
+
+OptionaloutTransformer: ((_: any) => unknown)
+An output transformer function.
+
+(_): unknown
+Parameters
+_: any
+Returns unknown
+Returns ((...req: unknown[]) => Promise<unknown>)
+A function that sends a JSON-RPC request with the given method and transformed parameters.
+
+(...req): Promise<unknown>
+Parameters
+Rest...req: unknown[]
+Returns Promise<unknown>
+Inherited from ClientJsonRpc.buildSender
+
+Defined in client/jsonRpc/client.ts:383
