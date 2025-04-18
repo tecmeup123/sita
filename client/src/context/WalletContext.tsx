@@ -685,19 +685,16 @@ export const WalletProvider: React.FC<{
   
   // Create a signerFilter function that will only allow the specified wallets and chains
   const walletFilter = async (signerInfo: ccc.SignerInfo, wallet: ccc.Wallet): Promise<boolean> => {
-    // Convert wallet names to lowercase for case-insensitive comparison
-    const walletName = wallet.name.toLowerCase();
-    
-    // Define mapping of displayed wallet names to our internal wallet IDs
-    const walletNameMapping: Record<string, string> = {
+    const WALLET_MAPPINGS = {
       'joyid passkey': 'joyid',
-      'metamask': 'metamask',
+      'metamask': 'metamask', 
       'utxo global wallet': 'utxo-global'
-    };
+    } as const;
     
-    // Check if this wallet name maps to one of our allowed wallets
-    const matchedWallet = walletNameMapping[walletName];
-    const isAllowed = availableWallets.includes(matchedWallet);
+    const matchedWallet = WALLET_MAPPINGS[wallet.name.toLowerCase()];
+    if (!matchedWallet || !availableWallets.includes(matchedWallet)) {
+      return false;
+    }
     
     // For both JoyID and UTXO Global, we need to filter by chain (only allow CKB)
     if ((matchedWallet === 'joyid' || matchedWallet === 'utxo-global') && signerInfo) {

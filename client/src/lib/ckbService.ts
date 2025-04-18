@@ -25,8 +25,10 @@ const createCkbRpcClient = () => {
  * @param network The CKB network (mainnet/testnet)
  * @returns The balance in CKB
  */
+import { Script, Cell } from './types/ckb';
+
 export async function getBalanceForScript(
-  script: any, 
+  script: Script, 
   network: 'mainnet' | 'testnet' = 'testnet'
 ): Promise<string> {
   console.log("Getting balance using direct RPC for script:", JSON.stringify(script));
