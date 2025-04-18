@@ -185,7 +185,7 @@ export default function Footer({ language, network = "testnet" }: FooterProps) {
             {termsAndConditionsText}
           </button>
           <a 
-            href="https://t.me/telmotalks/781" 
+            href="https://x.com/SiTaMinter" 
             target="_blank" 
             rel="noopener noreferrer"
             className="flex items-center gap-1 hover:underline"
