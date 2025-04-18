@@ -16,18 +16,22 @@ export default {
       },
       colors: {
         primary: {
-          DEFAULT: "#f97316",
+          DEFAULT: "#f97316", // Orange 500
           foreground: "#ffffff",
         },
-        background: "#fff7ed",
-        foreground: "#431407",
+        background: "#fffbeb", // Orange 50
+        foreground: "#431407", // Orange 950
         card: {
-          DEFAULT: "#fff7ed",
-          foreground: "#9a3412",
+          DEFAULT: "#fff7ed", // Orange 100
+          foreground: "#9a3412", // Orange 800
         },
         popover: {
-          DEFAULT: "#fff7ed",
-          foreground: "#431407",
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

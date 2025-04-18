@@ -3,26 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 24 100% 97%;
-    --foreground: 20 90% 14%;
-    --card: 24 100% 98%;
-    --card-foreground: 24 85% 34%;
-    --popover: 24 100% 98%;
-    --popover-foreground: 24 90% 14%;
-    --primary: 24 94% 53%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 24 94% 93%;
-    --secondary-foreground: 24 94% 23%;
-    --accent: 24 94% 93%;
-    --accent-foreground: 24 94% 23%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 24 94% 83%;
-    --input: 24 94% 83%;
-    --ring: 24 94% 53%;
-  }
-
   * {
     @apply border-border;
     box-sizing: border-box;
