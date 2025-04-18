@@ -21,12 +21,12 @@ import { queryClient } from "@/lib/queryClient";
 function sanitizeText(text: string): string {
   if (!text) return '';
   return text
-    .replace(/</g, '<')
-    .replace(/>/g, '>')
-    .replace(/&/g, '&')
-    .replace(/"/g, '"')
-    .replace(/'/g, ''')
-    .replace(/\//g, '/');
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/\//g, '&#x2F;');
 }
 
 // Function to convert numbers to words with capitalized first letters
