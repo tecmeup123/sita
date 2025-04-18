@@ -34,16 +34,10 @@ export async function getBalanceForScript(
   console.log("Getting balance using direct RPC for script:", JSON.stringify(script));
 
   try {
-    // Convert script to hash - handle possible format issues with scriptToHash
-    // @ts-ignore - Types don't match exactly but function will work
-    const lockHash = scriptToHash(script);
-    console.log("Lock hash:", lockHash);
-
     // Create RPC client
     const rpcClient = createCkbRpcClient(network);
 
-    // Prepare RPC call - note that CKB RPC has specific format requirements
-    // Ensure keys match expected format (snake_case vs camelCase)
+    // First try getting capacity directly
     const response = await rpcClient.post('', {
       id: Date.now(),
       jsonrpc: '2.0',
@@ -52,7 +46,7 @@ export async function getBalanceForScript(
         {
           script: {
             code_hash: script.codeHash,
-            hash_type: script.hashType.toLowerCase(), // Ensure lowercase
+            hash_type: script.hashType.toLowerCase(),
             args: script.args
           },
           script_type: 'lock'
@@ -76,6 +70,39 @@ export async function getBalanceForScript(
     return "0";
   } catch (error) {
     console.error("Error fetching balance via RPC:", error);
+    try {
+      // Fallback to get_live_cells method
+      const liveCellsResponse = await rpcClient.post('', {
+        id: Date.now(),
+        jsonrpc: '2.0',
+        method: 'get_live_cells',
+        params: [
+          {
+            script: {
+              code_hash: script.codeHash,
+              hash_type: script.hashType.toLowerCase(),
+              args: script.args
+            },
+            script_type: 'lock',
+            filter: null
+          },
+          "asc",
+          "0x64" // Limit to 100 cells
+        ]
+      });
+
+      if (liveCellsResponse.data && liveCellsResponse.data.result) {
+        const cells = liveCellsResponse.data.result.objects || [];
+        const totalCapacity = cells.reduce((sum: bigint, cell: any) => {
+          return sum + BigInt(cell.output.capacity || 0);
+        }, BigInt(0));
+        
+        const capacityInCkb = Number(totalCapacity) / 10**8;
+        return capacityInCkb.toFixed(8);
+      }
+    } catch (fallbackError) {
+      console.error("Fallback balance check failed:", fallbackError);
+    }
     return "0";
   }
 }
