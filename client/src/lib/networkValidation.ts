@@ -21,7 +21,7 @@ export interface NetworkChangeEventDetail {
 export function validateNetworkSwitch(): { valid: false; error: Error } {
   return {
     valid: false,
-    error: new Error('Network switching is not supported')
+    error: new Error('Network switching is not supported - mainnet only')
   };
 }
 
@@ -35,7 +35,7 @@ export function safeNetworkSwitch(): {
 } {
   return {
     success: false,
-    error: new Error('Network switching is not supported')
+    error: new Error('Network switching is not supported - mainnet only')
   };
 }
 

@@ -16,9 +16,5 @@ export function NetworkProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useNetwork() {
-  const context = useContext(NetworkContext);
-  if (!context) {
-    throw new Error('useNetwork must be used within a NetworkProvider');
-  }
-  return context;
+  return { currentNetwork: 'mainnet' };
 }

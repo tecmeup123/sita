@@ -15,11 +15,15 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "#f97316", // Orange 500
+          foreground: "#ffffff",
+        },
+        background: "#fffbeb", // Orange 50
+        foreground: "#431407", // Orange 950
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "#fff7ed", // Orange 100
+          foreground: "#9a3412", // Orange 800
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
