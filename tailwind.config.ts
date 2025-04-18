@@ -26,12 +26,8 @@ export default {
           foreground: "#9a3412", // Orange 800
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "#fff7ed", // Orange 100
+          foreground: "#431407", // Orange 950
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
